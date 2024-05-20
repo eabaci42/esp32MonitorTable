@@ -37,17 +37,17 @@
 ///////////////////////////////////////////////////
 
 // Button and switch pin definitions
-int upButtonPin = 25;         // Up button
-int downButtonPin = 26;       // Down button
-int stopButtonPin = 27;       // Stop button
-int horizontalButtonPin = 14; // Horizontal button
-int verticalButtonPin = 13;   // Vertical button
+int upButtonPin = 30;         // Up button
+int downButtonPin = 31;       // Down button
+int stopButtonPin = 32;       // Stop button
+int horizontalButtonPin = 33; // Horizontal button
+int verticalButtonPin = 34;   // Vertical button
 int startSwitchPin = 36;      // Start switch
-int openCapSwitchPin = 39;    // Open cap switch
-int closeCapSwitchPin = 34;   // Close cap switch
-int ymaxSwitchPin = 35;       // Ymax switch
-int verticalSwitchPin = 32;   // Vertical cap switch
-int finalSwitchPin = 33;      // Additional horizontal switch
+int openCapSwitchPin = 37;    // Open cap switch
+int closeCapSwitchPin = 38;   // Close cap switch
+int ymaxSwitchPin = 39;       // Ymax switch
+int verticalSwitchPin = 40;   // Vertical cap switch
+int finalSwitchPin = 41;      // Additional horizontal switch
 
 // Button and switch objects instantiation
 ezButton upButton(upButtonPin);
@@ -62,12 +62,12 @@ ezButton ymaxSwitch(ymaxSwitchPin);
 ezButton verticalSwitch(verticalSwitchPin);
 ezButton finalSwitch(finalSwitchPin);
 
-int mainMotorForwardPin = 23;
-int mainMotorBackwardPin = 22;
-int secondMotorForwardPin = 3;
-int secondMotorBackwardPin = 21;
-int capMotorForwardPin = 19;
-int capMotorBackwardPin = 18;
+int mainMotorForwardPin = 24;
+int mainMotorBackwardPin = 25;
+int secondMotorForwardPin = 26;
+int secondMotorBackwardPin = 27;
+int capMotorForwardPin = 28;
+int capMotorBackwardPin = 29;
 
 //////////////////////////////////////////////
 // [2] Flags                                //
