@@ -3,19 +3,7 @@
 
 #include <ezButton.h>
 
-// Pin Definitions
-extern int upButtonPin;
-extern int downButtonPin;
-extern int stopButtonPin;
-extern int horizontalButtonPin;
-extern int verticalButtonPin;
-extern int startSwitchPin;
-extern int openCapSwitchPin;
-extern int closeCapSwitchPin;
-extern int ymaxSwitchPin;
-extern int verticalSwitchPin;
-extern int finalSwitchPin;
-
+// Button and switch objects instantiation
 extern ezButton upButton;
 extern ezButton downButton;
 extern ezButton stopButton;

@@ -1,5 +1,4 @@
 #include "input.h"
-#include <Arduino.h>
 
 // Pin Definitions
 int upButtonPin = 25;
@@ -28,9 +27,9 @@ ezButton verticalSwitch(verticalSwitchPin);
 ezButton finalSwitch(finalSwitchPin);
 
 void setupButtons() {
-    ezButton *buttons[] = {&upButton, &downButton, &stopButton, &horizontalButton, &verticalButton,
+    ezButton* buttons[] = {&upButton, &downButton, &stopButton, &horizontalButton, &verticalButton,
                            &startSwitch, &openCapSwitch, &closeCapSwitch, &ymaxSwitch, &verticalSwitch, &finalSwitch};
-    for (ezButton *button : buttons) {
+    for (ezButton* button : buttons) {
         button->setDebounceTime(50);
     }
 }
@@ -49,7 +48,7 @@ void allLoop() {
     finalSwitch.loop();
 }
 
-bool checkPressed(ezButton &button) {
+bool checkPressed(ezButton& button) {
     button.loop();
     return button.isPressed();
 }
