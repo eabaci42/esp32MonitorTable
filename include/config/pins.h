@@ -1,0 +1,25 @@
+#ifndef PINS_H
+#define PINS_H
+
+// Button and switch pin definitions
+#define UP_BUTTON_PIN 25
+#define DOWN_BUTTON_PIN 26
+#define STOP_BUTTON_PIN 27
+#define HORIZONTAL_BUTTON_PIN 14
+#define VERTICAL_BUTTON_PIN 13
+#define START_SWITCH_PIN 36
+#define OPEN_CAP_SWITCH_PIN 39
+#define CLOSE_CAP_SWITCH_PIN 34
+#define YMAX_SWITCH_PIN 35
+#define VERTICAL_SWITCH_PIN 32
+#define FINAL_SWITCH_PIN 33
+
+// Motor pin definitions
+#define MAIN_MOTOR_FORWARD_PIN 23
+#define MAIN_MOTOR_BACKWARD_PIN 22
+#define SECOND_MOTOR_FORWARD_PIN 3
+#define SECOND_MOTOR_BACKWARD_PIN 21
+#define CAP_MOTOR_FORWARD_PIN 19
+#define CAP_MOTOR_BACKWARD_PIN 18
+
+#endif // PINS_H 

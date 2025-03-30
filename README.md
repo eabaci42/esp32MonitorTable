@@ -1,227 +1,404 @@
+# <div align="center">🖥️ ESP32 Monitör Masa Kontrol Sistemi</div>
 
-# Finite State Machine Control System
+<div align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0891b2&height=200&section=header&text=ESP32%20Monitör%20Masa&fontSize=50&fontColor=ffffff&animation=fadeIn&fontAlignY=38" alt="ESP32 Monitör Masa" />
+</div>
 
-This project implements a Finite State Machine (FSM) to control a multi-motor system with various buttons and switches using an ESP32 microcontroller. The system manages different states and transitions to perform complex operations, including cap manipulation and motor control.
+<p align="center">
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&duration=2000&pause=500&color=0891B2&center=true&vCenter=true&width=450&lines=Durum+Makinesi+Kontrol+Sistemi;Motor+Kontrol+%C3%9Cnitesi;Buton+%C4%B0%C5%9Fleme+Mant%C4%B1%C4%9F%C4%B1;Kapak+Y%C3%B6netim+Mod%C3%BCl%C3%BC;Hata+Yakalama+Sistemi" alt="Typing SVG" />
+</p>
 
-## Table of Contents
-- [Hardware Requirements](#hardware-requirements)
-- [Software Requirements](#software-requirements)
-- [Pin Definitions](#pin-definitions)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Finite State Machine](#finite-state-machine)
-- [State Functions](#state-functions)
-- [Cap Manipulation Functions](#cap-manipulation-functions)
-- [Utility Functions](#utility-functions)
-- [Contributing](#contributing)
-- [License](#license)
+<div align="center">
+  <a href="https://github.com/eabaci42/esp32MonitorTable">
+    <img src="https://img.shields.io/badge/GitHub-esp32MonitorTable-181717?style=for-the-badge&logo=github&logoColor=white" />
+  </a>
+  <a href="https://www.arduino.cc/reference/en/">
+    <img src="https://img.shields.io/badge/Platform-Arduino-00979D?style=for-the-badge&logo=arduino&logoColor=white" />
+  </a>
+  <a href="https://www.espressif.com/en/products/socs/esp32">
+    <img src="https://img.shields.io/badge/Microcontroller-ESP32-D4222A?style=for-the-badge&logo=espressif&logoColor=white" />
+  </a>
+</div>
 
-## Hardware Requirements
-- ESP32 microcontroller
-- Buttons and switches
-- Motors
-- Motor drivers
-- Connecting wires
-- Power supply
+## <div align="center">📋 Proje Açıklaması</div>
 
-## Software Requirements
-- Arduino IDE
-- ezButton library
-- FiniteStateMachine library
+<div align="center">
+  <img src="https://media.giphy.com/media/7c8QeB0VMddFOuu4iR/giphy.gif" width="400" />
+</div>
 
-## Pin Definitions
-| Component           | Pin Number |
-|---------------------|------------|
-| Up Button           | 25         |
-| Down Button         | 26         |
-| Stop Button         | 27         |
-| Horizontal Button   | 14         |
-| Vertical Button     | 12         |
-| Start Switch        | 36         |
-| Open Cap Switch     | 39         |
-| Close Cap Switch    | 34         |
-| Ymax Switch         | 35         |
-| Vertical Switch     | 32         |
-| Final Switch        | 33         |
-| Main Motor Forward  | 23         |
-| Main Motor Backward | 22         |
-| Second Motor Forward| 3          |
-| Second Motor Backward| 21        |
-| Cap Motor Forward   | 19         |
-| Cap Motor Backward  | 18         |
+<div align="center">
+  <table style="background-color: #101728; width: 85%; margin: 25px auto; border-collapse: collapse; border-radius: 8px; overflow: hidden; border-left: 5px solid #0891b2;">
+    <tr>
+      <td style="padding: 20px; text-align: left;">
+        <p><i><b>"Sonlu Durum Makinesi mantığıyla tasarlanmış tam otomatik monitör masa kontrol sistemi"</b></i></p>
+        <p>Bu proje, ESP32 mikrodenetleyicisi kullanılarak bir monitör masasının kapak ve motor hareketlerini kontrol eden modüler bir sistemdir. Sonlu Durum Makinesi (FSM) kullanarak farklı durumlar arasında geçiş yapar ve kullanıcı girişlerine göre masanın hareketlerini koordine eder.</p>
+        <p>Sistem, kullanıcı tarafından basılan butonlara veya limit switchlerin durumuna bağlı olarak, ana motor, ikincil motor ve kapak motoru olmak üzere üç farklı motoru kontrol eder. Motorların doğru sırayla ve güvenli bir şekilde çalışmasını sağlamak için kapsamlı bir durum makinesi uygulanmıştır.</p>
+        <p><i><b>"Modüler tasarım sayesinde bakım ve geliştirme süreci kolaylaştırılmıştır."</b></i></p>
+      </td>
+    </tr>
+  </table>
+</div>
 
-## Installation
-1. Clone this repository to your local machine:
-   \`\`\`sh
-   git clone https://github.com/yourusername/fsm-control-system.git
-   \`\`\`
-2. Open the project in Arduino IDE.
-3. Install the required libraries:
+## <div align="center">🔌 Donanım Bağlantıları</div>
+
+<div align="center">
+  <table>
+    <tr>
+      <th>Bileşen</th>
+      <th>Pin Numarası</th>
+      <th>Açıklama</th>
+    </tr>
+    <tr>
+      <td>Yukarı Butonu</td>
+      <td>25</td>
+      <td>Yukarı yönlü hareketi başlatır</td>
+    </tr>
+    <tr>
+      <td>Aşağı Butonu</td>
+      <td>26</td>
+      <td>Aşağı yönlü hareketi başlatır</td>
+    </tr>
+    <tr>
+      <td>Durdurma Butonu</td>
+      <td>27</td>
+      <td>Hareketi durdurur</td>
+    </tr>
+    <tr>
+      <td>Yatay Butonu</td>
+      <td>14</td>
+      <td>Yatay eksende hareketi başlatır</td>
+    </tr>
+    <tr>
+      <td>Dikey Butonu</td>
+      <td>13</td>
+      <td>Dikey eksende hareketi başlatır</td>
+    </tr>
+    <tr>
+      <td>Başlatma Anahtarı</td>
+      <td>36</td>
+      <td>Sistemin temel konumunu algılar</td>
+    </tr>
+    <tr>
+      <td>Kapak Açık Anahtarı</td>
+      <td>39</td>
+      <td>Kapağın açık olduğunu algılar</td>
+    </tr>
+    <tr>
+      <td>Kapak Kapalı Anahtarı</td>
+      <td>34</td>
+      <td>Kapağın kapalı olduğunu algılar</td>
+    </tr>
+    <tr>
+      <td>Y-Maksimum Anahtarı</td>
+      <td>35</td>
+      <td>Y ekseninde maksimum konumu algılar</td>
+    </tr>
+    <tr>
+      <td>Dikey Konum Anahtarı</td>
+      <td>32</td>
+      <td>Dikey konumu algılar</td>
+    </tr>
+    <tr>
+      <td>Son Konum Anahtarı</td>
+      <td>33</td>
+      <td>Sistemin son konumunu algılar</td>
+    </tr>
+    <tr>
+      <td>Ana Motor İleri</td>
+      <td>23</td>
+      <td>Ana motorun ileri yönde hareketi</td>
+    </tr>
+    <tr>
+      <td>Ana Motor Geri</td>
+      <td>22</td>
+      <td>Ana motorun geri yönde hareketi</td>
+    </tr>
+    <tr>
+      <td>İkincil Motor İleri</td>
+      <td>3</td>
+      <td>İkincil motorun ileri yönde hareketi</td>
+    </tr>
+    <tr>
+      <td>İkincil Motor Geri</td>
+      <td>21</td>
+      <td>İkincil motorun geri yönde hareketi</td>
+    </tr>
+    <tr>
+      <td>Kapak Motor İleri</td>
+      <td>19</td>
+      <td>Kapak motorunun ileri yönde hareketi</td>
+    </tr>
+    <tr>
+      <td>Kapak Motor Geri</td>
+      <td>18</td>
+      <td>Kapak motorunun geri yönde hareketi</td>
+    </tr>
+  </table>
+</div>
+
+## <div align="center">🧩 Proje Yapısı</div>
+
+<div align="center">
+  <img src="https://media.giphy.com/media/QNFhOolVeCzPQ2Mx85/giphy.gif" width="400" />
+</div>
+
+Proje, modüler bir yapıda organize edilmiştir:
+
+```
+esp32MonitorTable/
+├── include/             # Header dosyaları
+│   ├── buttons/         # Butonlarla ilgili tanımlamalar
+│   ├── cap/             # Kapak kontrolü ile ilgili tanımlamalar
+│   ├── config/          # Konfigürasyon ve pin tanımlamaları 
+│   ├── motors/          # Motor kontrolü ile ilgili tanımlamalar
+│   ├── states/          # Durum makinesi ve durum tanımlamaları
+│   └── utils/           # Yardımcı fonksiyonlar ve bayraklar
+├── src/                 # Kaynak dosyaları
+│   ├── buttons/         # Buton işlevleri implementasyonu
+│   ├── cap/             # Kapak kontrol işlevleri implementasyonu
+│   ├── config/          # (Boş, yalnızca header içeriyor)
+│   ├── motors/          # Motor kontrol işlevleri implementasyonu
+│   ├── states/          # Durum makinesi ve durum işlevleri implementasyonu
+│   └── utils/           # Yardımcı fonksiyonlar implementasyonu
+├── srclib/              # Harici kütüphaneler
+│   ├── ezButton/        # Buton debounce kütüphanesi
+│   └── FiniteStateMachine/ # FSM kütüphanesi
+├── main.ino             # Ana program dosyası
+├── LICENSE              # Lisans bilgileri
+└── README.md            # Proje açıklaması (bu dosya)
+```
+
+## <div align="center">🔄 Sonlu Durum Makinesi</div>
+
+<div align="center">
+  <table>
+    <tr>
+      <td>
+        <h3>Durum Geçişleri</h3>
+        <img src="https://media.giphy.com/media/3oKIPsx2VAYAgEHC12/giphy.gif" width="300" />
+        <p>Sistem aşağıdaki durum geçişlerini kullanır:</p>
+        <ul>
+          <li>START → OPENCAP → Y_RISING → YZ_VERTICAL → Z_RISING → PRESENTATION</li>
+          <li>PRESENTATION → Z_FALLING → YZ_VERTICAL → Y_FALLING → CLOSECAP → START</li>
+          <li>Her durum için orta konumlar (Y_MIDDLE, Z_MIDDLE)</li>
+          <li>Hata durumları için ERROR durumu</li>
+        </ul>
+      </td>
+      <td>
+        <h3>Durum İşlevleri</h3>
+        <img src="https://media.giphy.com/media/3o7qDPfGhunRMZikI8/giphy.gif" width="300" />
+        <p>Her durum için tanımlanmış işlevler:</p>
+        <ul>
+          <li><b>startState()</b> - Başlangıç durumu</li>
+          <li><b>openCapState()</b> - Kapak açma durumu</li>
+          <li><b>closeCapState()</b> - Kapak kapatma durumu</li>
+          <li><b>yrisingState()</b> - Y ekseninde yükselme</li>
+          <li><b>yfallingState()</b> - Y ekseninde inme</li>
+          <li><b>zrisingState()</b> - Z ekseninde yükselme</li>
+          <li><b>zfallingState()</b> - Z ekseninde inme</li>
+          <li><b>yzverticalState()</b> - Y-Z eksenlerinde dikey pozisyon</li>
+          <li><b>presentationState()</b> - Sunum modu</li>
+        </ul>
+      </td>
+    </tr>
+  </table>
+</div>
+
+## <div align="center">⚙️ Kurulum</div>
+
+<div align="center">
+  <img src="https://media.giphy.com/media/RJzm826vu7WbJvBtxX/giphy.gif" width="400" />
+</div>
+
+1. Bu projeyi klonlayın:
+   ```sh
+   git clone https://github.com/eabaci42/esp32MonitorTable.git
+   ```
+
+2. Arduino IDE'yi açın ve gerekli kütüphaneleri yükleyin:
    - ezButton
    - FiniteStateMachine
 
-4. Connect your ESP32 and upload the sketch.
+3. `Tools -> Board` menüsünden ESP32 geliştirme kartınızı seçin.
 
-## Usage
-1. Set up the hardware as per the pin definitions.
-2. Power on the system.
-3. Monitor the serial output for debugging and state transitions.
-4. Use the buttons and switches to control the state machine and perform operations.
+4. Donanım bağlantılarını pin tablosuna göre yapın.
 
-## Finite State Machine
-The FSM controls the state transitions based on button and switch inputs. The states include:
-- START
-- OPENCAP
-- CLOSECAP
-- Y_RISING
-- Y_MIDDLE
-- Y_FALLING
-- YZ_VERTICAL
-- Z_VERTICAL
-- Z_RISING
-- Z_MIDDLE
-- Z_FALLING
-- PRESENTATION
-- UNDEFINED
-- ERROR
+5. Projeyi derleyin ve ESP32'ye yükleyin.
 
-## State Functions
-### startState
-Initial state that checks for the start conditions and transitions to OPENCAP state.
-\`\`\`cpp
-void startState();
-\`\`\`
+## <div align="center">🚀 Kullanım</div>
 
-### openCapState
-Handles the operation of opening the cap.
-\`\`\`cpp
-void openCapState();
-\`\`\`
+<div align="center">
+  <img src="https://media.giphy.com/media/YnexM3nEIKtPxpNKJi/giphy.gif" width="400" />
+</div>
 
-### closeCapState
-Handles the operation of closing the cap.
-\`\`\`cpp
-void closeCapState();
-\`\`\`
+1. Sistemi çalıştırdıktan sonra, monitör masası başlangıç konumunda olacaktır.
 
-### yrisingState
-Manages the Y-axis rising movement.
-\`\`\`cpp
-void yrisingState();
-\`\`\`
+2. Yukarı butonu ile hareketi başlatın:
+   - Önce kapak açılacak
+   - Sonra Y ekseninde yükselme başlayacak
+   - Y-Max konumuna ulaşıldığında Z ekseni hareketi başlayacak
+   - Son konuma ulaşıldığında sunum moduna geçilecek
 
-### ymiddleState
-Manages the Y-axis middle position.
-\`\`\`cpp
-void ymiddleState();
-\`\`\`
+3. Aşağı butonu ile geri dönüş hareketini başlatın:
+   - Z ekseni aşağı inecek
+   - Y ekseni aşağı inecek
+   - Başlangıç konumuna geldiğinde kapak kapanacak
 
-### yfallingState
-Manages the Y-axis falling movement.
-\`\`\`cpp
-void yfallingState();
-\`\`\`
+4. Durdurma butonu ile hareketi istediğiniz zaman durdurabilirsiniz.
 
-### yzverticalState
-Handles the Y-Z axis vertical transition.
-\`\`\`cpp
-void yzverticalState();
-\`\`\`
+5. Yatay ve dikey butonları ile manuel kontrol yapabilirsiniz.
 
-### zverticalState
-Manages the Z-axis vertical position.
-\`\`\`cpp
-void zverticalState();
-\`\`\`
+## <div align="center">🛠️ Modüller</div>
 
-### zrisingState
-Handles the Z-axis rising movement.
-\`\`\`cpp
-void zrisingState();
-\`\`\`
+<div align="center">
+  <table>
+    <tr>
+      <td width="33%" align="center">
+        <h3>🔘 Buton Modülü</h3>
+        <img src="https://media.giphy.com/media/xT0GqimU9dTwmE5lra/giphy.gif" width="200" />
+        <p>Butonların durumlarını okur ve debounce uygular.</p>
+      </td>
+      <td width="33%" align="center">
+        <h3>⚙️ Motor Modülü</h3>
+        <img src="https://media.giphy.com/media/3ornjXbo3cjqh2BIyY/giphy.gif" width="200" />
+        <p>Motorların ileri, geri ve durma işlemlerini kontrol eder.</p>
+      </td>
+      <td width="33%" align="center">
+        <h3>🚪 Kapak Modülü</h3>
+        <img src="https://media.giphy.com/media/l0HlQXlQ3nHyLMvte/giphy.gif" width="200" />
+        <p>Kapağın açılıp kapanmasını yönetir.</p>
+      </td>
+    </tr>
+    <tr>
+      <td width="33%" align="center">
+        <h3>🔄 Durum Modülü</h3>
+        <img src="https://media.giphy.com/media/qgQUggAC3Pfv687qPC/giphy.gif" width="200" />
+        <p>Durum makinesi ve durum geçişlerini yönetir.</p>
+      </td>
+      <td width="33%" align="center">
+        <h3>🚩 Bayraklar Modülü</h3>
+        <img src="https://media.giphy.com/media/QWvra259h4LCvdJnxP/giphy.gif" width="200" />
+        <p>Sistem durumunu izleyen bayrakları yönetir.</p>
+      </td>
+      <td width="33%" align="center">
+        <h3>⚠️ Hata Yönetimi</h3>
+        <img src="https://media.giphy.com/media/3osxY9kuM2NGUfvThe/giphy.gif" width="200" />
+        <p>Hata durumlarını tespit eder ve raporlar.</p>
+      </td>
+    </tr>
+  </table>
+</div>
 
-### zmiddleState
-Manages the Z-axis middle position.
-\`\`\`cpp
-void zmiddleState();
-\`\`\`
+## <div align="center">⚡ Teknik Özellikler</div>
 
-### zfallingState
-Handles the Z-axis falling movement.
-\`\`\`cpp
-void zfallingState();
-\`\`\`
+<div align="center">
+  <img src="https://img.shields.io/badge/Mikrodenetleyici-ESP32-D4222A?style=for-the-badge&logo=espressif&logoColor=white" />
+  <img src="https://img.shields.io/badge/Programlama_Dili-C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" />
+  <img src="https://img.shields.io/badge/Framework-Arduino-00979D?style=for-the-badge&logo=arduino&logoColor=white" />
+  <img src="https://img.shields.io/badge/Durum_Makinesi-FSM-2B822E?style=for-the-badge&logo=arduino&logoColor=white" />
+  <img src="https://img.shields.io/badge/Motor_Kontrolü-PWM-FF9E0F?style=for-the-badge&logo=arduino&logoColor=white" />
+</div>
 
-### presentationState
-State for presentation mode.
-\`\`\`cpp
-void presentationState();
-\`\`\`
+<table align="center">
+  <tr>
+    <td width="50%">
+      <h3>💾 Bellek Kullanımı</h3>
+      <ul>
+        <li>Program Hafızası: ~30KB</li>
+        <li>Dinamik Bellek: ~5KB</li>
+        <li>Durum Makinesi: 14 Durum</li>
+      </ul>
+    </td>
+    <td width="50%">
+      <h3>⏱️ Performans</h3>
+      <ul>
+        <li>Buton Debounce Süresi: 50ms</li>
+        <li>Durum Geçiş Süresi: <5ms</li>
+        <li>Seri Haberleşme Hızı: 115200 baud</li>
+      </ul>
+    </td>
+  </tr>
+</table>
 
-### undefinedState
-Initial undefined state.
-\`\`\`cpp
-void undefinedState();
-\`\`\`
+## <div align="center">📝 Hata Kodları</div>
 
-### errorState
-Handles error conditions.
-\`\`\`cpp
-void errorState();
-\`\`\`
+<div align="center">
+  <img src="https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif" width="400" />
+</div>
 
-## Cap Manipulation Functions
-### openCap
-Function to open the cap.
-\`\`\`cpp
-bool openCap();
-\`\`\`
+<div align="center">
+  <table>
+    <tr>
+      <th>Hata Kodu</th>
+      <th>Açıklama</th>
+    </tr>
+    <tr>
+      <td>E02X001</td>
+      <td>openCapState fonksiyonuna yetkisiz erişim</td>
+    </tr>
+    <tr>
+      <td>E02X002</td>
+      <td>openCapFlag beklenmeyen değere sahip</td>
+    </tr>
+    <tr>
+      <td>E02X003</td>
+      <td>Kapak açma işlemi sırasında hata oluştu</td>
+    </tr>
+    <tr>
+      <td>E03X001</td>
+      <td>closeCapState fonksiyonuna yetkisiz erişim</td>
+    </tr>
+    <tr>
+      <td>E03X002</td>
+      <td>closeCapFlag beklenmeyen değere sahip</td>
+    </tr>
+    <tr>
+      <td>E03X003</td>
+      <td>Kapak kapatma işlemi sırasında hata oluştu</td>
+    </tr>
+  </table>
+</div>
 
-### closeCap
-Function to close the cap.
-\`\`\`cpp
-bool closeCap();
-\`\`\`
+## <div align="center">👨‍💻 Geliştirici</div>
 
-## Utility Functions
-### checkPressed
-Checks if a button or switch is pressed.
-\`\`\`cpp
-bool checkPressed(ezButton &button);
-\`\`\`
+<div align="center">
+  <a href="https://github.com/eabaci42">
+    <img src="https://img.shields.io/badge/GitHub-eabaci42-181717?style=for-the-badge&logo=github&logoColor=white" />
+  </a>
+  <a href="mailto:ertugrul@atikrost.com">
+    <img src="https://img.shields.io/badge/Email-ertugrul@atikrost.com-D14836?style=for-the-badge&logo=gmail&logoColor=white" />
+  </a>
+  <a href="https://www.linkedin.com/in/eabaci42">
+    <img src="https://img.shields.io/badge/LinkedIn-eabaci42-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" />
+  </a>
+</div>
 
-### allLoop
-Loops through all buttons and switches.
-\`\`\`cpp
-void allLoop();
-\`\`\`
+<div align="center">
+  <a href="https://github.com/eabaci42">
+    <img src="https://github-readme-stats-git-masterrstaa-rickstaa.vercel.app/api?username=eabaci42&show_icons=true&theme=tokyonight&hide_title=true&count_private=true&hide_border=true" alt="GitHub İstatistikleri" />
+  </a>
+</div>
 
-### updateErrorMessage
-Updates the error message.
-\`\`\`cpp
-void updateErrorMessage(const char *message);
-\`\`\`
+## <div align="center">📜 Lisans</div>
 
-### forwardMotor
-Moves a motor forward.
-\`\`\`cpp
-void forwardMotor(int pin1, int pin2);
-\`\`\`
+<div align="center">
+  <img src="https://media.giphy.com/media/VgGthkhUvGgOit7Y9i/giphy.gif" width="300" />
+</div>
 
-### backwardMotor
-Moves a motor backward.
-\`\`\`cpp
-void backwardMotor(int pin1, int pin2);
-\`\`\`
+<div align="center">
+  <a href="https://github.com/eabaci42/esp32MonitorTable/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/eabaci42/esp32MonitorTable?style=for-the-badge&color=0891b2" alt="License" />
+  </a>
+</div>
 
-### stopMotor
-Stops a motor.
-\`\`\`cpp
-void stopMotor(int pin1, int pin2);
-\`\`\`
+<div align="center">
+  <p>Bu proje MIT Lisansı altında lisanslanmıştır. Daha fazla bilgi için <a href="LICENSE">LICENSE</a> dosyasına bakın.</p>
+</div>
 
-## Contributing
-Contributions are welcome! Please fork this repository and submit a pull request with your improvements.
+<div align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0891b2&height=150&section=footer&fontSize=30"/>
+</div>
 
-## License
-This project is licensed under the MIT License. See the \`LICENSE\` file for details.
+<div align="center">
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=18&duration=2000&pause=500&color=0891b2&center=true&vCenter=true&width=500&lines=Modüler+kod+daha+iyi+kodtur...;Basit+çözümler+karmaşık+sorunları+yener...;İyi+tasarlanmış+sistem+uzun+ömürlüdür...;İyi+dokümantasyon+projeyi+ölümsüzleştirir..." alt="Slogan" />
+</div>
